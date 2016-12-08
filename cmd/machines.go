@@ -17,6 +17,7 @@ import (
 	"github.com/manifoldco/torus-cli/base64"
 	"github.com/manifoldco/torus-cli/config"
 	"github.com/manifoldco/torus-cli/errs"
+	"github.com/manifoldco/torus-cli/hints"
 	"github.com/manifoldco/torus-cli/identity"
 	"github.com/manifoldco/torus-cli/primitive"
 )
@@ -501,6 +502,7 @@ func createMachineRole(ctx *cli.Context) error {
 	}
 
 	fmt.Printf("Role %s created.\n", teamName)
+	hints.Display([]string{"allow", "deny", "policies"})
 	return nil
 }
 
@@ -591,7 +593,8 @@ func createMachine(ctx *cli.Context) error {
 	fmt.Fprintf(w, "Machine Token Secret:\t%s\n", tokenSecret)
 
 	w.Flush()
-	return err
+	hints.Display([]string{"allow", "deny"})
+	return nil
 }
 
 func createMachineByName(c context.Context, client *api.Client,
